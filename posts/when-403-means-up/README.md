@@ -42,7 +42,7 @@ Website checks (and the free [website down checker](/website-down-checker/)): an
 
 Do not “fix” timeout, DNS, or refused with expected status. There is no code.
 
-A lookup that returns an address, while the page still fails, is a later layer. Walk the port, the certificate, and the status in [DNS works, the site does not](/blog/dns-works-the-site-does-not/). A 502 on one path while the homepage is 200 is [Only some pages return 502](/blog/only-some-pages-return-502/). A 504 on one path while the homepage is 200 is [Only some pages return 504](/blog/only-some-pages-return-504/).
+A lookup that returns an address, while the page still fails, is a later layer. Walk the port, the certificate, and the status in [DNS works, the site does not](/blog/dns-works-the-site-does-not/). A 502 on one path while the homepage is 200 is [Only some pages return 502](/blog/only-some-pages-return-502/).
 
 A 301 to a parked page that finally returns 200 is the dangerous 3xx: redirects on, expected 200, origin gone. A chain that comes back to a URL it already returned is [Too many redirects](/blog/too-many-redirects/). A 503 with a friendly HTML body is still down.
 

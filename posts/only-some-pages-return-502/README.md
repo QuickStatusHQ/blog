@@ -34,7 +34,7 @@ On the 502 response, the `Server` header names the proxy that gave up: Cloudflar
 
 The homepage **200** means that proxy is running. Restarting the proxy does not start the upstream that only this route uses. Look at the app process, the timeout, or the route rule that sends this path to a different backend.
 
-**504** is the sibling failure: the proxy waited and gave up on a slow upstream. The homepage still shows the proxy itself is up. If only one path is 504, compare those two URLs in [Only some pages return 504](/blog/only-some-pages-return-504/).
+**504** is the sibling failure: the proxy waited and gave up on a slow upstream. The homepage still shows the proxy itself is up.
 
 ## 3. Monitor the path that failed
 

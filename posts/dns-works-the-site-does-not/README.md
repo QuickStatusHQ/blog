@@ -64,7 +64,7 @@ A TCP check never does this step. It only opens the port. Certificate errors sho
 
 The first line of that curl output is the first time HTTP matters. What each code means for a Website check versus an API check is in [When 403 means up](/blog/when-403-means-up/). Three outcomes show up constantly on this search:
 
-- **502, 503, or 504.** Something accepted HTTPS. The app, or the proxy in front of it, failed. DNS and the port are fine. If the homepage is 200 and only one path is 502, compare those two URLs in [Only some pages return 502](/blog/only-some-pages-return-502/). If only one path is 504, compare them in [Only some pages return 504](/blog/only-some-pages-return-504/).
+- **502, 503, or 504.** Something accepted HTTPS. The app, or the proxy in front of it, failed. DNS and the port are fine. If the homepage is 200 and only one path is 502, compare those two URLs in [Only some pages return 502](/blog/only-some-pages-return-502/).
 - **200, and the body says the app is down.** `{"status":"down"}` with a 200 is a green check unless you assert the body. Search for a string that appears only when healthy, such as `"status":"ok"`, or set a JSONPath assertion on `$.status`.
 - **200 of the homepage, and customers still cannot log in.** You probed a cached page. Point the check at `/health` (or whatever path reaches the app) and have that handler send `Cache-Control: no-store`.
 
