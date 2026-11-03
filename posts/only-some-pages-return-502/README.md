@@ -1,6 +1,6 @@
 ---
 title: Only some pages return 502
-description: "Curl a URL that works and one that fails. Read both status lines. When the homepage is 200 and one path is 502, the proxy answered and that path's upstream did not."
+description: "Homepage is 200 but one path returns 502? Curl both and read the status lines: the proxy answered, and that path's upstream did not."
 date: "2026-10-20"
 validated: "2026-10-20"
 ---

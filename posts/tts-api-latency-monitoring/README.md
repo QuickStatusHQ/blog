@@ -49,6 +49,8 @@ Run the canary every 15 minutes, or every 5 if voice is the core of your product
 
 The key is stored with the check. A separate key means you can rotate it without touching production.
 
+The same two-check setup works for an LLM API. See [monitor the OpenAI API](/monitor-openai-api/).
+
 ### Regions
 
 The free plan runs each check from one region. Pro runs it from all five: San Francisco, Ashburn, Montreal, Frankfurt, and Singapore.
