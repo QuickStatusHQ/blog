@@ -40,3 +40,5 @@ The checker is there so you can see that split before you guess.
 ## Why not ping from the browser?
 
 Your browser is one more single location, plus ad blockers, corporate proxies, and “mixed content” noise. Server-side probes from known regions keep the measurement comparable from one check to the next. The map is the product: same cities, same protocol, every time.
+
+When the failing city is where your customers are, tell them what's happening while you fix it: set up a [free status page](/free-status-page/).

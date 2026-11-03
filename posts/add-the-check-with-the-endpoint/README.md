@@ -3,7 +3,7 @@ title: Add the check when you add the endpoint
 description: "The health check usually gets added after the first outage. Ask your coding agent to add it in the same session it writes the endpoint, over MCP."
 date: "2026-11-03"
 validated: "2026-11-03"
-# Target: uptime monitoring Claude Code / Cursor / Codex. Leaves "uptime monitoring MCP server" to /mcp-uptime-monitoring/ (unpublished); link it here once it is live.
+# Target: uptime monitoring Claude Code / Cursor / Codex. Leaves "uptime monitoring MCP server" to /mcp-uptime-monitoring/, linked below.
 # Link /blog/one-failed-check-is-noise/ once it is published.
 # Facts from content/docs/14-mcp.md, data_pipeline/engine/api/mcp.py (server instructions, tool descriptions), 6-checks.md, /pricing/ on 2026-11-03.
 ---
@@ -16,7 +16,7 @@ If you write the endpoint with Cursor, Claude Code, or Codex, the agent that wro
 
 ## What the ask looks like
 
-Connect the [ScaledPapers MCP server](/docs/mcp/), then ask in the same chat:
+Connect the [ScaledPapers uptime monitoring MCP server](/mcp-uptime-monitoring/), then ask in the same chat:
 
 > Watch the health URLs in this repo and put each one on our status page as its own component.
 
@@ -57,10 +57,10 @@ The script reads the key from the environment, so the raw key never goes into a 
 
 ```bash
 claude mcp add --transport http scaledpapers https://api.scaledpapers.com/mcp \
-  --header "Authorization: Bearer ${SP_API_KEY}"
+  --header 'Authorization: Bearer ${SP_API_KEY}'
 ```
 
-The Cursor and Codex snippets are in the [MCP docs](/docs/mcp/). The server has 34 tools. Cursor enables at most 40 MCP tools across all servers, so leave room for the others you use.
+Keep the single quotes, so Claude Code stores the variable and not the key. The Cursor and Codex snippets are in the [MCP docs](/docs/mcp/). The server has 34 tools. Cursor enables at most 40 MCP tools across all servers, so leave room for the others you use.
 
 claude.ai and Claude Desktop custom connectors are not supported yet. They expect OAuth, and this server takes a bearer key.
 

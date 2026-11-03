@@ -41,3 +41,5 @@ The homepage **200** means that proxy is running. Restarting the proxy does not 
 A check on `/` can stay green while `/checkout` returns 502. Add a Website or API check on the URL that returned 502. **502** is down for Website and API checks. Status-code rules are in [When 403 means up](/blog/when-403-means-up/); the form is [Add a check](/docs/checks/).
 
 Leave the confirmation period at three failures. One 502 is stored. It does not open an incident.
+
+While checkout is down and the homepage is up, say exactly that: a [free status page](/free-status-page/) can show one component down and the rest working.

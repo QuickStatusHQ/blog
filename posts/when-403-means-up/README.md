@@ -60,3 +60,5 @@ Some APIs always return 200 and put the error in JSON: `{"error": "unavailable"}
 6. Leave confirmation at three failures so a single 429 or 408 does not page.
 
 The number on the response is data. The expected status is the contract.
+
+When the contract does break, tell users what's happening while you fix it: set up a [free status page](/free-status-page/).
