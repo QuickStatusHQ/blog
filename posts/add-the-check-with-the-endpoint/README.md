@@ -30,7 +30,7 @@ The checks it creates are ordinary checks. They show up in the console and the [
 
 ## Where it stops
 
-**At the plan cap.** The server tells the agent to call `usage` before creating anything and to stop when a cap is reached. On the free plan that is 5 checks, and the API refuses a sixth either way. If the repo has nine health URLs, expect five checks and a note about the other four. You decide which five matter.
+**At the plan cap.** The server tells the agent to call `usage` before creating anything and to stop when a cap is reached. On the free plan that is 10 checks, and the API refuses a sixth either way. If the repo has nine health URLs, expect ten checks and a note about the other four. You decide which five matter.
 
 **At localhost.** Checks run from our probe regions, not your laptop. Private and loopback addresses are rejected. An agent working on a dev server will often reach for `http://localhost:3000/health` first. Give it the staging or production URL instead.
 
@@ -72,4 +72,4 @@ Maintenance works the same way. Over MCP, a maintenance window does not email su
 
 ---
 
-API requests are unlimited and never billed on any plan. The free plan includes 5 checks and a status page. See [pricing](/pricing/).
+API requests are unlimited and never billed on any plan. The free plan includes 10 checks and a status page. See [pricing](/pricing/).

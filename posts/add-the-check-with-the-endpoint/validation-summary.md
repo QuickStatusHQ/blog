@@ -14,7 +14,7 @@ Each claim about the MCP server, plan limits, and setup was compared with the en
 - **Endpoint and auth**: `https://api.scaledpapers.com/mcp` with a bearer key. claude.ai and Claude Desktop custom connectors are not supported because they expect OAuth. Source: `content/docs/14-mcp.md`.
 - **Tool count**: 34 `@mcp.tool(` registrations in `data_pipeline/engine/api/mcp.py`. The live server listed 34 tools on 2026-11-03.
 - **Agent instructions**: the server tells agents to call `usage` before creating anything, to stop at a cap, and to delete, open incidents, or email subscribers only when the user asked in the conversation. Source: server `instructions` in `mcp.py`.
-- **Free cap**: 5 checks, also enforced by the API (`plan_max_endpoints` in `data_pipeline/engine/api/routes/endpoints.py`). Plan values come from `billing.write_workspace_plan` and match `/pricing/`.
+- **Free cap**: 10 checks, also enforced by the API (`plan_max_endpoints` in `data_pipeline/engine/api/routes/endpoints.py`). Plan values come from `billing.write_workspace_plan` and match `/pricing/`.
 - **Private targets**: localhost, `.local`, private, loopback, and link-local addresses are rejected (`routes/endpoints.py`).
 - **Review drafts**: `list_incident_proposals` and `approve_incident_proposal` exist. Approving publishes the incident, emails subscribers, and posts to Slack. The tool description says to run it only when the user asked.
 - **Console only**: no MCP tool covers team, API keys, billing, creating or deleting alert destinations, deleting incidents, or visitor subscribers. `list_alert_destinations`, `test_alert_destination`, and `page_alert_destinations` work only on destinations that already exist.

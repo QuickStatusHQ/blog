@@ -11,7 +11,7 @@ Every claim about ScaledPapers checks was compared with the console and engine s
 
 ## Result
 
-- **Plans**: Free is 5 checks, a 5-minute minimum interval, 1 region, and 14 days of results. Pro is 25 checks, 60 seconds, 5 regions, and 90 days. Source: `billing.write_workspace_plan` in `supabase/migrations/0049_resume_checks_on_pro.sql`, matching `/pricing/`.
+- **Plans**: Free is 10 checks, a 5-minute minimum interval, 1 region, and 14 days of results. Pro is 25 checks, 60 seconds, 5 regions, and 90 days. Source: `billing.write_workspace_plan` in `supabase/migrations/0049_resume_checks_on_pro.sql`, matching `/pricing/`.
 - **Regions**: San Francisco (us-west-1), Ashburn (us-east-1), Montreal (ca-central-1), Frankfurt (eu-central-1), and Singapore (ap-southeast-1). Source: live `list_regions` on 2026-11-03.
 - **Duration**: the HTTP probe starts its timer before the request and stops it after reading the response body, capped at 64 KB (`MAX_READ_BYTES = 65536` in `data_pipeline/engine/workers/checkers/http.py`). A one- or two-word clip is well under that cap.
 - **Request options**: GET, POST, and the other methods. **Request headers**, a request body (disabled for GET and HEAD), **Expected status code**, and the **Body contains** and **JSONPath equals** assertions. Source: `app/src/CheckForm.tsx`.

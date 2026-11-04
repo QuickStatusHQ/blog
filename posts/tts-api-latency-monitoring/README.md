@@ -108,4 +108,4 @@ Both checks are ScaledPapers [API checks](/docs/checks/). Here is how the setup 
 
 **Status page.** Link the canary to the "Voice responses" component. Under **When the check is down**, pick **Create an incident automatically**. The default is **Don't create an incident**. If you want a person to approve the incident before it goes public, pick **Ask me to review first** instead.
 
-When your voice agent goes quiet, your users should hear why from you. The free plan includes 5 checks from one region, and Pro checks from all five. See [pricing](/pricing/).
+When your voice agent goes quiet, your users should hear why from you. The free plan includes 10 checks from one region, and Pro checks from all five. See [pricing](/pricing/).

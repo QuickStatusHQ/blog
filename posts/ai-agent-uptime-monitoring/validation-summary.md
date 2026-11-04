@@ -16,7 +16,7 @@ Every claim about ScaledPapers checks was compared with the public docs, the MCP
 - **Request options**: POST, request headers, HTTP authorization, and a request body (disabled for GET and HEAD). **Body contains** is an exact, case-sensitive text match; **JSONPath equals** is also available. Source: `content/docs/6-checks.md`.
 - **Public targets only**: saving rejects private, loopback, and non-http(s) targets. Source: `content/docs/6-checks.md`.
 - **Confirmation period** 1, 2, 3, or 5 (default 3); **Request timeout** 5, 10, 15, or 30 seconds. Source: `content/docs/6-checks.md` (Advanced).
-- **Regions and plans**: Free is 5 checks from 1 region; Pro is up to 5 regions (San Francisco, Ashburn, Montreal, Frankfurt, Singapore). Email alerts on every plan; Slack, Discord, PagerDuty, Pushover, and webhook alerts on Pro. Source: `content/docs/6-checks.md` and `/pricing/`.
+- **Regions and plans**: Free is 10 checks from 1 region; Pro is up to 5 regions (San Francisco, Ashburn, Montreal, Frankfurt, Singapore). Email alerts on every plan; Slack, Discord, PagerDuty, Pushover, and webhook alerts on Pro. Source: `content/docs/6-checks.md` and `/pricing/`.
 - **Incidents**: **When the check is down** offers **Create an incident automatically** and **Ask me to review first**. Source: `content/docs/6-checks.md` (Status page).
 - **MCP server limits**: `create_check` cannot set request headers, request body, or HTTP auth. Source: `data_pipeline/engine/api/mcp.py`.
 - **Duration**: the check page shows **Test duration (avg)**; there are no latency threshold alerts. Source: `content/docs/7-check-results.md`.

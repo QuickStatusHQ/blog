@@ -103,4 +103,4 @@ If your Ingress manifests live in the repo, an agent in Claude Code, Cursor, or 
 
 There are no heartbeat checks for CronJobs, no warning before a certificate expires, and no alert on slow responses. Checks store each run's duration and show the average, and they alert on failures and timeouts.
 
-When the ingress breaks and every pod is still Ready, your users should hear it from you. Start with the free plan: 5 checks and a status page, no card. See [pricing](/pricing/).
+When the ingress breaks and every pod is still Ready, your users should hear it from you. Start with the free plan: 10 checks and a status page, no card. See [pricing](/pricing/).

@@ -11,7 +11,7 @@ Every claim about ScaledPapers checks was compared with the public docs, the con
 
 ## Result
 
-- **Plans**: Free is 5 checks, every 5, 15, 30, or 60 minutes, from 1 region. Pro adds 1- and 2-minute intervals and 5 regions. Source: `content/docs/6-checks.md` (Test frequency, Regions) and `/pricing/`.
+- **Plans**: Free is 10 checks, every 5, 15, 30, or 60 minutes, from 1 region. Pro adds 1- and 2-minute intervals and 5 regions. Source: `content/docs/6-checks.md` (Test frequency, Regions) and `/pricing/`.
 - **Regions**: San Francisco, Ashburn, Montreal, Frankfurt, and Singapore. Source: `content/docs/6-checks.md`.
 - **Public targets only**: saving rejects private, loopback, and non-http(s) targets; DNS rejects private, loopback, `.local`, and `localhost` names; TCP rejects private, loopback, and link-local targets. Source: `content/docs/6-checks.md`.
 - **API vs Website**: API checks treat the expected status as an exact match (default 200). Website checks treat any response below 500 as up. Source: Assertions hints in `content/docs/6-checks.md`.

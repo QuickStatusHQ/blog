@@ -109,4 +109,4 @@ The list above works with any monitor that can send a POST with headers. In Scal
 
 **What ScaledPapers does not do yet.** There are no heartbeat checks, so the `/healthz/sandbox` route above is the way to cover background runs. Checks store each run's duration and show the average, but they alert on failures and timeouts, not on slow responses. For voice agents, where slow is its own failure, see [TTS latency monitoring](/blog/tts-api-latency-monitoring/).
 
-When a dependency fails, your users should hear it from you before they open a ticket. Start with the free plan: 5 checks and a status page, no card. See [pricing](/pricing/).
+When a dependency fails, your users should hear it from you before they open a ticket. Start with the free plan: 10 checks and a status page, no card. See [pricing](/pricing/).
