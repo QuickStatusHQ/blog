@@ -11,7 +11,7 @@ Each claim about the MCP server, plan limits, and setup was compared with the en
 
 ## Result
 
-- **Endpoint and auth**: `https://api.scaledpapers.com/mcp` with a bearer key. claude.ai and Claude Desktop custom connectors are not supported because they expect OAuth. Source: `content/docs/14-mcp.md`.
+- **Endpoint and auth**: `https://api.quickstatus.dev/mcp` with a bearer key. claude.ai and Claude Desktop custom connectors are not supported because they expect OAuth. Source: `content/docs/14-mcp.md`.
 - **Tool count**: 34 `@mcp.tool(` registrations in `data_pipeline/engine/api/mcp.py`. The live server listed 34 tools on 2026-11-03.
 - **Agent instructions**: the server tells agents to call `usage` before creating anything, to stop at a cap, and to delete, open incidents, or email subscribers only when the user asked in the conversation. Source: server `instructions` in `mcp.py`.
 - **Free cap**: 10 checks, also enforced by the API (`plan_max_endpoints` in `data_pipeline/engine/api/routes/endpoints.py`). Plan values come from `billing.write_workspace_plan` and match `/pricing/`.

@@ -7,7 +7,7 @@ Date: 2026-11-03
 
 ## What was checked
 
-Every claim about ScaledPapers checks was compared with the public docs, the console source, the MCP server, and `/pricing/`.
+Every claim about QuickStatus checks was compared with the public docs, the console source, the MCP server, and `/pricing/`.
 
 ## Result
 

@@ -7,7 +7,7 @@ validated: "2026-11-03"
 # Facts checked against app/src/CheckForm.tsx, EndpointCheck.tsx, checkChart.ts, workers/checkers/http.py, routes/endpoints.py, plan migrations and live list_regions on 2026-11-03. See validation/tts-api-latency-monitoring.md.
 # Do not add time-to-first-audio measurement, percentiles in the UI, or latency-threshold alerts unless the product ships them.
 # build-blog.mjs does not emit FAQPage schema; the FAQ below is plain content.
-# Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in ScaledPapers" (restructured 2026-11-03).
+# Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus" (restructured 2026-11-03).
 ---
 
 A text-to-speech API fails in two ways. The obvious one is **down**: requests time out or come back 5xx. The quieter one is **slow**: the API still answers 200, but the first audio arrives a second late and your voice agent sounds like it froze. Callers hang up either way.
@@ -88,11 +88,11 @@ One region tells you whether the API answers from there. It cannot tell a provid
 
 Down is easy to see. Slow is what callers hear first, so measure it from where they are.
 
-## Setting it up in ScaledPapers
+## Setting it up in QuickStatus
 
-Both checks are ScaledPapers [API checks](/docs/checks/). Here is how the setup above maps to the form.
+Both checks are QuickStatus [API checks](/docs/checks/). Here is how the setup above maps to the form.
 
-**What a check measures.** A ScaledPapers check measures **duration**: from the start of the request until the response body has been read, up to the first 64 KB. A clip of one or two words fits well inside that.
+**What a check measures.** A QuickStatus check measures **duration**: from the start of the request until the response body has been read, up to the first 64 KB. A clip of one or two words fits well inside that.
 
 **The reachability check.** Method GET. Put your key under **Request headers**. Keep **Expected status code** at 200 and add a **Body contains** or **JSONPath equals** assertion.
 

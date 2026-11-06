@@ -7,7 +7,7 @@ Date: 2026-11-03
 
 ## What was checked
 
-Every claim about ScaledPapers checks was compared with the console and engine source, the plan migrations, and the live region list.
+Every claim about QuickStatus checks was compared with the console and engine source, the plan migrations, and the live region list.
 
 ## Result
 

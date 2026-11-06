@@ -7,7 +7,7 @@ validated: "2026-11-03"
 # Facts checked against content/docs/6-checks.md, 7-check-results.md, app/src/CheckForm.tsx, data_pipeline/engine/api/mcp.py and /pricing/ on 2026-11-03. See validation/kubernetes-ingress-monitoring.md.
 # Do not add heartbeat checks, certificate-expiry alerts, or latency-threshold alerts unless the product ships them.
 # MCP create_check/update_check take body_contains but not JSONPath assertions, headers, or auth. Keep the post saying those are set in the console.
-# Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in ScaledPapers".
+# Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus".
 ---
 
 Your pods are Ready. That does not mean anyone can reach them.
@@ -63,9 +63,9 @@ A rolling deploy, an HPA scale-up, or a node drain can drop a single request. Th
 
 Probes keep your pods healthy. A check from outside tells you whether anyone can reach them.
 
-## Setting it up in ScaledPapers
+## Setting it up in QuickStatus
 
-The checklist works with any external monitor. Here is how each step maps to ScaledPapers checks, which run from outside your infrastructure. Saving a check rejects private, loopback, and non-http(s) targets, so use the public ingress hostname, not a cluster-internal name like `api.default.svc.cluster.local`.
+The checklist works with any external monitor. Here is how each step maps to QuickStatus checks, which run from outside your infrastructure. Saving a check rejects private, loopback, and non-http(s) targets, so use the public ingress hostname, not a cluster-internal name like `api.default.svc.cluster.local`.
 
 ### An API check for each readiness URL
 
@@ -99,7 +99,7 @@ Link each check to a component on a [status page](/free-status-page/). One check
 
 If your Ingress manifests live in the repo, an agent in Claude Code, Cursor, or Codex can do most of the setup over [MCP](/docs/mcp/). Ask it to read the Ingress hosts and health paths and create one check per host, with a **Body contains** assertion and a link to a component. JSONPath assertions, request headers, and HTTP auth are set in the console, since the MCP server leaves secrets there. The same API key works with the [REST API](/docs/api/) if you would rather do it from CI. More on the [MCP uptime monitoring](/mcp-uptime-monitoring/) page.
 
-### What ScaledPapers does not do yet
+### What QuickStatus does not do yet
 
 There are no heartbeat checks for CronJobs, no warning before a certificate expires, and no alert on slow responses. Checks store each run's duration and show the average, and they alert on failures and timeouts.
 

@@ -2,7 +2,7 @@
 title: When 403 means up
 description: A WAF 403 is not an outage. A 200 with an error payload is. Scan HTTP status codes for website and API checks, and what to set as expected.
 date: "2026-09-17"
-# Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in ScaledPapers" (restructured 2026-11-03).
+# Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus" (restructured 2026-11-03).
 ---
 
 HTTP status is a number on the wire. Up is a judgment. Treat every 4xx as down and you will page on bot walls, expired probe credentials, and rate limits. Treat every 200 as up and you will miss the health endpoint that returns `{"ok": false}`.
@@ -59,9 +59,9 @@ Some APIs always return 200 and put the error in JSON: `{"error": "unavailable"}
 
 The number on the response is data. The expected status is the contract.
 
-## Setting it up in ScaledPapers
+## Setting it up in QuickStatus
 
-ScaledPapers checks build those two rules in, so you pick the rule when you pick the check kind.
+QuickStatus checks build those two rules in, so you pick the rule when you pick the check kind.
 
 - **Website checks** (and the free [website down checker](/website-down-checker/)): any HTTP status below 500 is up. Every code the table marks “No”, “Usually not”, or “Not the service” counts as up.
 - **API checks**: exact match, default 200. List any other code you expect, such as 201, 202, 204, or 304, in **Expected status code**, or with `expected_status_codes` on the [Checks API](/docs/api/). A 403 on an API check is down unless you list it.

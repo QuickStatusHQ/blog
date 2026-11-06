@@ -3,7 +3,7 @@ title: Why we ping from different regions
 description: A check from one city only answers “is it down for me?” Multi-region pings separate a global outage from a regional routing problem.
 date: "2026-08-28"
 validated: "2026-10-20"
-# Structure follows docs/marketing/blog-post-structure.md: no product until "How the ScaledPapers checker does it" (restructured 2026-11-03).
+# Structure follows docs/marketing/blog-post-structure.md: no product until "How the QuickStatus checker does it" (restructured 2026-11-03).
 ---
 
 A website can look fine from your laptop and still be unreachable for customers on another continent. DNS, CDNs, and ISP peering all take different paths. One probe, from one place, cannot tell those cases apart.
@@ -30,7 +30,7 @@ Your browser is one more single location, plus ad blockers, corporate proxies, a
 
 See the split before you guess. It tells you whether to fix the origin, open a ticket with the CDN, or wait out one bad route.
 
-## How the ScaledPapers checker does it
+## How the QuickStatus checker does it
 
 You can run that split on any URL right now. The free [website down checker](/website-down-checker/) hits the same URL from **16 AWS regions** at once and shows HTTP status and response time for each city:
 

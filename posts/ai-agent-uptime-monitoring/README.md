@@ -5,9 +5,9 @@ date: "2026-11-03"
 validated: "2026-11-03"
 # Target keyword: AI agent uptime monitoring (secondary: MCP server uptime check, monitor AI agent dependencies, sandbox API monitoring).
 # Inspired by the run-level sandbox monitoring angle in Northflank's "How to monitor and debug AI-agent sandboxes in production" (2026-09-14). This post covers the outside view only.
-# Facts checked against content/docs/6-checks.md, 7-check-results.md, data_pipeline/engine/api/mcp.py, /pricing/, and a live initialize request to api.scaledpapers.com/mcp on 2026-11-03. See validation/ai-agent-uptime-monitoring.md.
+# Facts checked against content/docs/6-checks.md, 7-check-results.md, data_pipeline/engine/api/mcp.py, /pricing/, and a live initialize request to api.quickstatus.dev/mcp on 2026-11-03. See validation/ai-agent-uptime-monitoring.md.
 # There is no MCP check type yet (tools/list over a session). Do not claim one, or heartbeat checks, until they ship.
-# Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in ScaledPapers".
+# Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus".
 ---
 
 An agent run can fail in two different places. Inside the run, the agent loops, calls the wrong tool, or writes the wrong file. That is a job for traces, logs, and run-level metrics. Outside the run, something the agent depends on stops answering: the model API, an MCP server, the sandbox provider, or your own API that starts runs. Run-level tooling sees the second kind only as a run that timed out or a tool call that errored. By then a user has already watched the agent fail.
@@ -93,9 +93,9 @@ Users of an agent product see one thing: the agent did not finish. A status page
 
 Run-level tooling tells you what the agent did. A check from outside tells you whether it could do anything at all.
 
-## Setting it up in ScaledPapers
+## Setting it up in QuickStatus
 
-The list above works with any monitor that can send a POST with headers. In ScaledPapers, each item is one API check.
+The list above works with any monitor that can send a POST with headers. In QuickStatus, each item is one API check.
 
 **The checks.** Open **Checks → API** and click **Add check** for each dependency. For an MCP server, set **HTTP method** to POST, add the headers under **Request headers**, paste the `initialize` body into **HTTP body**, and add a **Body contains** assertion for `protocolVersion`. **Body contains** is an exact, case-sensitive text match. For the model API and your own health routes, **JSONPath equals** works when the reply is plain JSON. Checks only accept public targets: private, loopback, and non-http(s) URLs are rejected, so a tool inside your VPC stays with your in-cluster monitoring.
 
@@ -107,6 +107,6 @@ The list above works with any monitor that can send a POST with headers. In Scal
 
 **From your coding agent.** Claude Code, Cursor, or Codex can create and link these checks over the [uptime monitoring MCP server](/mcp-uptime-monitoring/). Request headers, request bodies, and HTTP auth are set in the console, since the MCP server leaves secrets there.
 
-**What ScaledPapers does not do yet.** There are no heartbeat checks, so the `/healthz/sandbox` route above is the way to cover background runs. Checks store each run's duration and show the average, but they alert on failures and timeouts, not on slow responses. For voice agents, where slow is its own failure, see [TTS latency monitoring](/blog/tts-api-latency-monitoring/).
+**What QuickStatus does not do yet.** There are no heartbeat checks, so the `/healthz/sandbox` route above is the way to cover background runs. Checks store each run's duration and show the average, but they alert on failures and timeouts, not on slow responses. For voice agents, where slow is its own failure, see [TTS latency monitoring](/blog/tts-api-latency-monitoring/).
 
 When a dependency fails, your users should hear it from you before they open a ticket. Start with the free plan: 10 checks and a status page, no card. See [pricing](/pricing/).

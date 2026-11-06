@@ -16,7 +16,7 @@ If you write the endpoint with Cursor, Claude Code, or Codex, the agent that wro
 
 ## What the ask looks like
 
-Connect the [ScaledPapers uptime monitoring MCP server](/mcp-uptime-monitoring/), then ask in the same chat:
+Connect the [QuickStatus uptime monitoring MCP server](/mcp-uptime-monitoring/), then ask in the same chat:
 
 > Watch the health URLs in this repo and put each one on our status page as its own component.
 
@@ -30,7 +30,7 @@ The checks it creates are ordinary checks. They show up in the console and the [
 
 ## Where it stops
 
-**At the plan cap.** The server tells the agent to call `usage` before creating anything and to stop when a cap is reached. On the free plan that is 10 checks, and the API refuses a sixth either way. If the repo has nine health URLs, expect ten checks and a note about the other four. You decide which five matter.
+**At the plan cap.** The server tells the agent to call `usage` before creating anything and to stop when a cap is reached. On the free plan that is 10 checks, and the API refuses an eleventh either way. If the repo has fourteen health URLs, expect ten checks and a note about the other four. You decide which ten matter.
 
 **At localhost.** Checks run from our probe regions, not your laptop. Private and loopback addresses are rejected. An agent working on a dev server will often reach for `http://localhost:3000/health` first. Give it the staging or production URL instead.
 
@@ -49,14 +49,14 @@ export SP_API_KEY=sp_…
 Install the skill and wire the server:
 
 ```bash
-npx skills add ScaledPapers/skills --skill uptime-status-page -a claude-code -a codex -g -y
+npx skills add QuickStatusHQ/skills --skill uptime-status-page -a claude-code -a codex -g -y
 bash ~/.agents/skills/uptime-status-page/scripts/wire-mcp.sh claude   # or cursor, or codex
 ```
 
 The script reads the key from the environment, so the raw key never goes into a project file. To add it by hand in Claude Code:
 
 ```bash
-claude mcp add --transport http scaledpapers https://api.scaledpapers.com/mcp \
+claude mcp add --transport http quickstatus https://api.quickstatus.dev/mcp \
   --header 'Authorization: Bearer ${SP_API_KEY}'
 ```
 

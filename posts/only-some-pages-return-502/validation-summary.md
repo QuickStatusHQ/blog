@@ -5,7 +5,7 @@ validated
 
 Date: 2026-10-20
 
-Host: scaledpapers.com
+Host: quickstatus.dev
 
 ## What was checked
 
@@ -14,11 +14,11 @@ The post opens with two `curl -sI` commands: one URL that loads, one that does n
 ## 1. Homepage and a blog path
 
 ```
-curl -sI --max-time 20 https://scaledpapers.com/
+curl -sI --max-time 20 https://quickstatus.dev/
 HTTP/2 200
 server: cloudflare
 
-curl -sI --max-time 20 https://scaledpapers.com/blog/too-many-redirects/
+curl -sI --max-time 20 https://quickstatus.dev/blog/too-many-redirects/
 HTTP/2 200
 server: cloudflare
 ```
@@ -28,7 +28,7 @@ Both status lines are HTTP/2 200. Cloudflare answered for each URL.
 ## 2. Path that does not exist
 
 ```
-curl -sI --max-time 20 https://scaledpapers.com/no-such-path-502-check
+curl -sI --max-time 20 https://quickstatus.dev/no-such-path-502-check
 HTTP/2 404
 server: cloudflare
 ```
