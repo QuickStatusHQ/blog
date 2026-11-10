@@ -4,7 +4,6 @@ description: "The health check usually gets added after the first outage. Ask yo
 date: "2026-11-03"
 validated: "2026-11-03"
 # Target: uptime monitoring Claude Code / Cursor / Codex. Leaves "uptime monitoring MCP server" to /mcp-uptime-monitoring/, linked below.
-# Link /blog/one-failed-check-is-noise/ once it is published.
 # Facts from content/docs/14-mcp.md, data_pipeline/engine/api/mcp.py (server instructions, tool descriptions), 6-checks.md, /pricing/ on 2026-11-03.
 ---
 
@@ -66,7 +65,7 @@ claude.ai and Claude Desktop custom connectors are not supported yet. They expec
 
 ## After the checks exist
 
-The agent sets up the checks. The defaults decide when anyone gets paged. A new check needs 3 failed runs in a row before it counts as down, so one blip is stored and nothing is sent. If a check runs every 5 minutes and should page sooner, ask the agent to lower its confirmation period.
+The agent sets up the checks. The defaults decide when anyone gets paged. A new check needs 3 failed runs in a row before it counts as down, so one blip is stored and nothing is sent. If a check runs every 5 minutes and should page sooner, ask the agent to lower its confirmation period. [One failed check is noise](/blog/one-failed-check-is-noise/) covers how to pick the number.
 
 Maintenance works the same way. Over MCP, a maintenance window does not email subscribers unless you ask for it. Over the REST API, it emails them by default when a public component is included. Say so when you want the email sent.
 
