@@ -1,5 +1,6 @@
 ---
 title: A 200 that is still down
+seo_title: "Health check returns 200 but the site is down"
 description: "A health check can return 200 while the database is down or a CDN answers for a dead origin. Read the body, read the cache headers, and make /ready honest."
 date: "2026-11-10"
 validated: "2026-11-10"

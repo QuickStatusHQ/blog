@@ -1,5 +1,6 @@
 ---
 title: One failed check is noise
+seo_title: "False uptime alerts: one failed check is noise"
 description: "A single timeout is not an outage. Require failures in a row, set the timeout above your slowest normal response, and read regions before you page anyone."
 date: "2026-11-10"
 validated: "2026-11-10"

@@ -1,5 +1,6 @@
 ---
 title: What to post while it is down
+seo_title: "Status page incident update templates"
 description: "Incident update templates for investigating, identified, monitoring, and resolved, plus a maintenance notice. What each update must say, and how often to post."
 date: "2026-11-10"
 validated: "2026-11-10"
