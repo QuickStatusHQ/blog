@@ -2,11 +2,11 @@
 title: "AI agent uptime monitoring from outside"
 description: "An agent fails when its model API, MCP servers, or sandbox provider fails. Which endpoints to check from outside, how to check an MCP server, and what to skip."
 date: "2026-11-03"
-validated: "2026-11-03"
+validated: "2026-11-12"
 # Target keyword: AI agent uptime monitoring (secondary: MCP server uptime check, monitor AI agent dependencies, sandbox API monitoring).
 # Inspired by the run-level sandbox monitoring angle in Northflank's "How to monitor and debug AI-agent sandboxes in production" (2026-09-14). This post covers the outside view only.
 # Facts checked against content/docs/6-checks.md, 7-check-results.md, data_pipeline/engine/api/mcp.py, /pricing/, and a live initialize request to api.quickstatus.dev/mcp on 2026-11-03. See validation/ai-agent-uptime-monitoring.md.
-# There is no MCP check type yet (tools/list over a session). Do not claim one, or heartbeat checks, until they ship.
+# 2026-11-12: MCP server checks (initialize + tools/list), heartbeat checks, and slow alerts shipped (content/changelog.md 2026-11-12); console labels match the one-list Checks pages.
 # Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus".
 ---
 
@@ -95,11 +95,13 @@ Run-level tooling tells you what the agent did. A check from outside tells you w
 
 ## Setting it up in QuickStatus
 
-The list above works with any monitor that can send a POST with headers. In QuickStatus, each item is one API check.
+The list above works with any monitor that can send a POST with headers. In QuickStatus, each MCP server is an MCP server check and everything else is an HTTP check.
 
-**The checks.** Open **Checks → API** and click **Add check** for each dependency. For an MCP server, set **HTTP method** to POST, add the headers under **Request headers**, paste the `initialize` body into **HTTP body**, and add a **Body contains** assertion for `protocolVersion`. **Body contains** is an exact, case-sensitive text match. For the model API and your own health routes, **JSONPath equals** works when the reply is plain JSON. Checks only accept public targets: private, loopback, and non-http(s) URLs are rejected, so a tool inside your VPC stays with your in-cluster monitoring.
+**MCP servers.** Open **Checks**, click **Add check**, and pick **MCP server**. Enter the server URL and add the key under **Authorization**. Each run sends `initialize` and `tools/list`, and the check goes down if the server stops answering. List the tools your agent relies on under **Expected tools** and the check also fails when one disappears. Tools are listed, never called.
 
-**Alerts.** **Confirmation period** sets how many failed checks in a row (1, 2, 3, or 5; default 3) make the check down. A single failure is stored and nothing is sent. **Request timeout** is 5, 10, 15, or 30 seconds. Email alerts are on every plan. Slack, Discord, PagerDuty, Pushover, and webhook alerts are Pro.
+**Everything else.** Pick **Website or API** for the model API, the sandbox provider, and your own health routes, and set **Up when** to **Status is 200 OK**. Add the method, headers, and body under **HTTP request**. **JSONPath equals** works when the reply is plain JSON; **Body contains** is an exact, case-sensitive text match. Checks only accept public targets: private, loopback, and non-http(s) URLs are rejected, so a tool inside your VPC stays with your in-cluster monitoring.
+
+**Alerts.** **Mark down after** sets how many failed checks in a row (1, 2, 3, or 5; default 3) make the check down. A single failure is stored and nothing is sent. **Request timeout** is 5, 10, 15, or 30 seconds. Email alerts are on every plan. Slack, Discord, PagerDuty, Pushover, and webhook alerts are Pro.
 
 **Regions.** Free checks from 1 region. Pro checks from up to five: San Francisco, Ashburn, Montreal, Frankfurt, and Singapore, and the check page filters results by region.
 
@@ -107,6 +109,6 @@ The list above works with any monitor that can send a POST with headers. In Quic
 
 **From your coding agent.** Claude Code, Cursor, or Codex can create and link these checks over the [uptime monitoring MCP server](/mcp-uptime-monitoring/). Request headers, request bodies, and HTTP auth are set in the console, since the MCP server leaves secrets there.
 
-**What QuickStatus does not do yet.** There are no heartbeat checks, so the `/healthz/sandbox` route above is the way to cover background runs. Checks store each run's duration and show the average, but they alert on failures and timeouts, not on slow responses. For voice agents, where slow is its own failure, see [TTS latency monitoring](/blog/tts-api-latency-monitoring/).
+**Runs and slow answers.** For background runs, a **Heartbeat** check gives you a ping URL: call it when a run finishes (add `/fail` when it fails), and you get an alert when the pings stop. For a model API that answers but too slowly, set **Slow above (ms)** on the check, measured on total time or time to first byte. The check is marked **Slow**, not down, and you get an alert. For voice agents, where slow is its own failure, see [TTS latency monitoring](/blog/tts-api-latency-monitoring/).
 
 When a dependency fails, your users should hear it from you before they open a ticket. Start with the free plan: 10 checks and a status page, no card. See [pricing](/pricing/).

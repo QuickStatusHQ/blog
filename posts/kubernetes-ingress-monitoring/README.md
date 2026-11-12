@@ -2,10 +2,10 @@
 title: "Kubernetes ingress monitoring from outside"
 description: "Kubernetes probes never see your ingress, DNS, or load balancer. Check /readyz from outside the cluster, assert the body, and alert only on confirmed failures."
 date: "2026-11-03"
-validated: "2026-11-03"
+validated: "2026-11-12"
 # Target keyword: kubernetes ingress monitoring (secondary: external kubernetes uptime monitoring, monitor kubernetes endpoints from outside).
 # Facts checked against content/docs/6-checks.md, 7-check-results.md, app/src/CheckForm.tsx, data_pipeline/engine/api/mcp.py and /pricing/ on 2026-11-03. See validation/kubernetes-ingress-monitoring.md.
-# Do not add heartbeat checks, certificate-expiry alerts, or latency-threshold alerts unless the product ships them.
+# 2026-11-12: heartbeat checks, certificate expiry warnings, and slow alerts shipped (content/changelog.md 2026-11-12); console labels match the one-list Checks pages.
 # MCP create_check/update_check take body_contains but not JSONPath assertions, headers, or auth. Keep the post saying those are set in the console.
 # Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus".
 ---
@@ -49,7 +49,7 @@ A rolling deploy, an HPA scale-up, or a node drain can drop a single request. Th
 ## What an outside check does not cover
 
 - **CronJobs and background workers.** They have no public URL. The usual pattern is a heartbeat: the job pings a URL when it finishes, and you get an alert when the pings stop.
-- **Certificate expiry ahead of time.** A failing check tells you the certificate is already invalid. To hear about it days before, keep cert-manager's own alerts on, and look up days remaining with the free [SSL certificate checker](/tools/ssl-checker/).
+- **Certificate expiry ahead of time.** A failing check tells you the certificate is already invalid. To hear about it days before, use a monitor that reads the expiry date, keep cert-manager's own alerts on, and look up days remaining with the free [SSL certificate checker](/tools/ssl-checker/).
 - **Internal Services.** Anything without a public endpoint stays with in-cluster monitoring: your probes and Prometheus alerts.
 
 ## A starting checklist
@@ -69,25 +69,25 @@ The checklist works with any external monitor. Here is how each step maps to Qui
 
 ### An API check for each readiness URL
 
-Open **Checks → API**, click **Add check**, and enter `https://api.example.com/readyz`. API checks treat the expected status as an exact match, 200 by default.
+Open **Checks**, click **Add check**, pick **Website or API**, and enter `https://api.example.com/readyz`. Set **Up when** to **Status is 200 OK**, an exact match.
 
 Under **Assertions**, add **JSONPath equals**, for example `$.status` equals `ok`. **Body contains** also works, but it is an exact, case-sensitive text match, so it has the spacing problem above.
 
-If the route needs a header or basic auth, add it under **HTTP request**. Leave **Verify SSL certificate** on, which is the default.
+If the route needs a header or basic auth, add it under **HTTP request**. Under **HTTPS**, leave **Verify the certificate** on (the default), and **Warn before the certificate expires** at 14 days, so you hear about an expiring certificate before the check fails on it.
 
-A Website check is looser: any status below 500 counts as up. That catches a dead controller, but not a 404 from a broken ingress rule. For a readiness URL, use an API check.
+The default, **Any response below 500**, is looser. That catches a dead controller, but not a 404 from a broken ingress rule. For a readiness URL, use the exact match.
 
 ### A DNS check for the public record
 
-Open **Checks → DNS** and add `api.example.com` with record type A, AAAA, or CNAME. Under **Assertions**, list the values the lookup must include. The check fails when the answer stops including them.
+Click **Add check**, pick **DNS**, and add `api.example.com` with record type A, AAAA, or CNAME. Under **Assertions**, list the values the lookup must include. The check fails when the answer stops including them.
 
 ### A TCP check for non-HTTP ports
 
-Open **Checks → TCP** and enter the load balancer's public hostname and port. You can send a payload and require **Response contains**, or set **Connect under ms** as a maximum connect time.
+Click **Add check**, pick **TCP port**, and enter the load balancer's public hostname and port. You can send a payload and require **Response contains**, or set **Connect under ms** as a maximum connect time.
 
 ### Alerts, interval, and regions
 
-**Confirmation period** is the number of failures in a row before the check is down (1, 2, 3, or 5; default 3), and **Recovery period** is the number of passes to come back up (1, 2, or 3). A single failure is stored and nothing is sent. If a check goes down again soon after it recovers, you get one message that it is flapping, and further down and up alerts pause until it settles. **Request timeout** is 5, 10, 15, or 30 seconds.
+**Mark down after** is the number of failures in a row before the check is down (1, 2, 3, or 5; default 3), and **Mark up again after** is the number of passes to come back up (1, 2, or 3). A single failure is stored and nothing is sent. If a check goes down again soon after it recovers, you get one message that it is flapping, and further down and up alerts pause until it settles. **Request timeout** is 5, 10, 15, or 30 seconds.
 
 On Free, checks run every 5, 15, 30, or 60 minutes from 1 region, with email alerts. Pro adds 1- and 2-minute intervals, up to 5 regions (San Francisco, Ashburn, Montreal, Frankfurt, and Singapore), and Slack, Discord, PagerDuty, Pushover, and webhook alerts.
 
@@ -99,8 +99,12 @@ Link each check to a component on a [status page](/free-status-page/). One check
 
 If your Ingress manifests live in the repo, an agent in Claude Code, Cursor, or Codex can do most of the setup over [MCP](/docs/mcp/). Ask it to read the Ingress hosts and health paths and create one check per host, with a **Body contains** assertion and a link to a component. JSONPath assertions, request headers, and HTTP auth are set in the console, since the MCP server leaves secrets there. The same API key works with the [REST API](/docs/api/) if you would rather do it from CI. More on the [MCP uptime monitoring](/mcp-uptime-monitoring/) page.
 
-### What QuickStatus does not do yet
+### A heartbeat for each CronJob
 
-There are no heartbeat checks for CronJobs, no warning before a certificate expires, and no alert on slow responses. Checks store each run's duration and show the average, and they alert on failures and timeouts.
+Click **Add check**, pick **Heartbeat**, and set **Expected every** to the CronJob's schedule and **Grace** to how long a run may take. Copy the ping URL (it is shown once) and end the job's command with `curl -fsS -m 10 --retry 3 <ping URL>`, or call `<ping URL>/fail` when the job fails. If no ping arrives in time, you get a down alert.
+
+### Slow responses
+
+Under **Slow responses**, set **Slow above (ms)** a little over the readiness endpoint's normal time. A run that works but is slower marks the check **Slow**, not down: you get an alert, a linked component shows Degraded performance, and uptime is not affected.
 
 When the ingress breaks and every pod is still Ready, your users should hear it from you. Start with the free plan: 10 checks and a status page, no card. See [pricing](/pricing/).
