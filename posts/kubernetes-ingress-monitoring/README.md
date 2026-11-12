@@ -2,6 +2,7 @@
 title: "Kubernetes ingress monitoring from outside"
 description: "Kubernetes probes never see your ingress, DNS, or load balancer. Check /readyz from outside the cluster, assert the body, and alert only on confirmed failures."
 date: "2026-11-03"
+updated: "2026-11-12"
 validated: "2026-11-12"
 # Target keyword: kubernetes ingress monitoring (secondary: external kubernetes uptime monitoring, monitor kubernetes endpoints from outside).
 # Facts checked against content/docs/6-checks.md, 7-check-results.md, app/src/CheckForm.tsx, data_pipeline/engine/api/mcp.py and /pricing/ on 2026-11-03. See validation/kubernetes-ingress-monitoring.md.

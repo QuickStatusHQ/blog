@@ -3,6 +3,7 @@ title: One failed check is noise
 seo_title: "False uptime alerts: one failed check is noise"
 description: "A single timeout is not an outage. Require failures in a row, set the timeout above your slowest normal response, and read regions before you page anyone."
 date: "2026-11-10"
+updated: "2026-11-11"
 validated: "2026-11-10"
 # Target keyword: uptime monitoring false positives (secondary: false downtime alerts, alert fatigue uptime, how many failures before alert).
 # Absorbs the held draft "One city fails" (2026-10-20); its reading rules live in post 1 and in section 4 here.

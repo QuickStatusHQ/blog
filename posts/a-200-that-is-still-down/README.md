@@ -3,6 +3,7 @@ title: A 200 that is still down
 seo_title: "Health check returns 200 but the site is down"
 description: "A health check can return 200 while the database is down or a CDN answers for a dead origin. Read the body, read the cache headers, and make /ready honest."
 date: "2026-11-10"
+updated: "2026-11-11"
 validated: "2026-11-10"
 # Target keyword: health check returns 200 but service is down (secondary: health check body assertion, cached 200 origin down, liveness vs readiness endpoint).
 # Merges the held drafts "A 200 that is still down" and "The cache answered" (2026-10-20). /blog/the-cache-answered/ was never published.

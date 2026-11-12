@@ -3,6 +3,7 @@ title: What to post while it is down
 seo_title: "Status page incident update templates"
 description: "Incident update templates for investigating, identified, monitoring, and resolved, plus a maintenance notice. What each update must say, and how often to post."
 date: "2026-11-10"
+updated: "2026-11-11"
 validated: "2026-11-10"
 # Target keyword: incident communication templates (secondary: status page incident update examples, outage update template, maintenance notification template).
 # Facts checked against content/docs/4-incidents.md, 5-subscribe.md, 13-maintenance.md, app/src/pages/Incidents.tsx (impact labels) and supabase/functions/monitor (subscriber mail on create, update, resolve) on 2026-11-10. See validation/what-to-post-while-it-is-down.md.

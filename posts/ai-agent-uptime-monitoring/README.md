@@ -2,6 +2,7 @@
 title: "AI agent uptime monitoring from outside"
 description: "An agent fails when its model API, MCP servers, or sandbox provider fails. Which endpoints to check from outside, how to check an MCP server, and what to skip."
 date: "2026-11-03"
+updated: "2026-11-12"
 validated: "2026-11-12"
 # Target keyword: AI agent uptime monitoring (secondary: MCP server uptime check, monitor AI agent dependencies, sandbox API monitoring).
 # Inspired by the run-level sandbox monitoring angle in Northflank's "How to monitor and debug AI-agent sandboxes in production" (2026-09-14). This post covers the outside view only.
