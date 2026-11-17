@@ -1,4 +1,4 @@
-# QuickStatus blog
+# QuickStatus.dev blog
 
 These posts are a public copy of the validated articles on https://quickstatus.dev/blog. The site is published from the product repository. This tree is rewritten when that repository's master branch updates.
 
