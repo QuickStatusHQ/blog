@@ -2,12 +2,13 @@
 title: "Kubernetes ingress monitoring from outside"
 description: "Kubernetes probes never see your ingress, DNS, or load balancer. Check /readyz from outside the cluster, assert the body, and alert only on confirmed failures."
 date: "2026-11-03"
-updated: "2026-11-12"
+updated: "2026-11-18"
 validated: "2026-11-12"
 # Target keyword: kubernetes ingress monitoring (secondary: external kubernetes uptime monitoring, monitor kubernetes endpoints from outside).
 # Facts checked against content/docs/6-checks.md, 7-check-results.md, app/src/CheckForm.tsx, data_pipeline/engine/api/mcp.py and /pricing/ on 2026-11-03. See validation/kubernetes-ingress-monitoring.md.
 # 2026-11-12: heartbeat checks, certificate expiry warnings, and slow alerts shipped (content/changelog.md 2026-11-12); console labels match the one-list Checks pages.
 # MCP create_check/update_check take body_contains but not JSONPath assertions, headers, or auth. Keep the post saying those are set in the console.
+# 2026-11-18: "What an outside check does not cover" now names heartbeat checks (links /kubernetes-cronjob-monitoring/) and the 7/14/30-day certificate warning (issue #230).
 # Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus".
 ---
 
@@ -49,8 +50,8 @@ A rolling deploy, an HPA scale-up, or a node drain can drop a single request. Th
 
 ## What an outside check does not cover
 
-- **CronJobs and background workers.** They have no public URL. The usual pattern is a heartbeat: the job pings a URL when it finishes, and you get an alert when the pings stop.
-- **Certificate expiry ahead of time.** A failing check tells you the certificate is already invalid. To hear about it days before, use a monitor that reads the expiry date, keep cert-manager's own alerts on, and look up days remaining with the free [SSL certificate checker](/tools/ssl-checker/).
+- **CronJobs and background workers.** They have no public URL. Use a heartbeat check instead: the job pings a URL when it finishes, and you get an alert when the pings stop. See [Kubernetes CronJob monitoring](/kubernetes-cronjob-monitoring/).
+- **Certificate expiry ahead of time.** A failing check tells you the certificate is already invalid. QuickStatus.dev HTTPS checks can warn 7, 14 or 30 days before expiry (14 is the default). Keep cert-manager's own alerts on too, and look up days remaining with the free [SSL certificate checker](/tools/ssl-checker/).
 - **Internal Services.** Anything without a public endpoint stays with in-cluster monitoring: your probes and Prometheus alerts.
 
 ## A starting checklist
