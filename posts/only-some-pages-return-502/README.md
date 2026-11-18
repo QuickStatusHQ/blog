@@ -3,6 +3,7 @@ title: Only some pages return 502
 description: "Homepage is 200 but one path returns 502? Curl both and read the status lines: the proxy answered, and that path's upstream did not."
 date: "2026-10-20"
 validated: "2026-10-20"
+updated: "2026-11-18"
 ---
 
 The homepage loads. Checkout, or one API route, shows 502 Bad Gateway. The name resolved, the port opened, and the certificate was accepted. Compare two URLs before you restart anything.

@@ -5,6 +5,7 @@ date: "2026-11-03"
 validated: "2026-11-03"
 # Target: uptime monitoring Claude Code / Cursor / Codex. Leaves "uptime monitoring MCP server" to /mcp-uptime-monitoring/, linked below.
 # Facts from content/docs/14-mcp.md, data_pipeline/engine/api/mcp.py (server instructions, tool descriptions), 6-checks.md, /pricing/ on 2026-11-03.
+updated: "2026-11-18"
 ---
 
 A new endpoint ships. The health check for it gets added later, usually the week after it went down and nobody noticed.

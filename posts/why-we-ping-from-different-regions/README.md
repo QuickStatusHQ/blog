@@ -4,6 +4,7 @@ description: A check from one city only answers “is it down for me?” Multi-r
 date: "2026-08-28"
 validated: "2026-10-20"
 # Structure follows docs/marketing/blog-post-structure.md: no product until "How the QuickStatus checker does it" (restructured 2026-11-03).
+updated: "2026-11-18"
 ---
 
 A website can look fine from your laptop and still be unreachable for customers on another continent. DNS, CDNs, and ISP peering all take different paths. One probe, from one place, cannot tell those cases apart.

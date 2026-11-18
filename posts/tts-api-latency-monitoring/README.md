@@ -8,6 +8,7 @@ validated: "2026-11-03"
 # Do not add time-to-first-audio measurement, percentiles in the UI, or latency-threshold alerts unless the product ships them.
 # build-blog.mjs does not emit FAQPage schema; the FAQ below is plain content.
 # Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus" (restructured 2026-11-03).
+updated: "2026-11-18"
 ---
 
 A text-to-speech API fails in two ways. The obvious one is **down**: requests time out or come back 5xx. The quieter one is **slow**: the API still answers 200, but the first audio arrives a second late and your voice agent sounds like it froze. Callers hang up either way.

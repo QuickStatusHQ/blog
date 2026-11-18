@@ -3,6 +3,7 @@ title: Too many redirects
 description: "Print the redirect chain and stop when a URL repeats. One hop from HTTP to HTTPS is normal. A loop never returns a status code."
 date: "2026-10-20"
 validated: "2026-10-20"
+updated: "2026-11-18"
 ---
 
 The browser says the page redirected you too many times. Two rules are sending the visitor back and forth. Print the chain, and stop at the first URL that appears twice.

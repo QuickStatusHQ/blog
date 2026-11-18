@@ -3,6 +3,7 @@ title: When 403 means up
 description: A WAF 403 is not an outage. A 200 with an error payload is. Scan HTTP status codes for website and API checks, and what to set as expected.
 date: "2026-09-17"
 # Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus" (restructured 2026-11-03).
+updated: "2026-11-18"
 ---
 
 HTTP status is a number on the wire. Up is a judgment. Treat every 4xx as down and you will page on bot walls, expired probe credentials, and rate limits. Treat every 200 as up and you will miss the health endpoint that returns `{"ok": false}`.

@@ -3,6 +3,7 @@ title: DNS works, the site does not
 description: "dig returned an address and the page still does not load. Test the port, then the certificate, then the HTTP status, and stop at the first failure."
 date: "2026-10-20"
 validated: "2026-10-20"
+updated: "2026-11-18"
 ---
 
 `dig` returned an address. The page still does not load. Leave the nameservers alone until you know a later layer is fine. The name did its job. Test the next layer, and stop at the first one that fails.
