@@ -5,10 +5,10 @@ date: "2026-11-03"
 validated: "2026-11-03"
 # Target keyword: TTS latency monitoring (secondary: TTS API monitoring, text to speech API uptime).
 # Facts checked against app/src/CheckForm.tsx, EndpointCheck.tsx, checkChart.ts, workers/checkers/http.py, routes/endpoints.py, plan migrations and live list_regions on 2026-11-03. See validation/tts-api-latency-monitoring.md.
-# Do not add time-to-first-audio measurement, percentiles in the UI, or latency-threshold alerts unless the product ships them.
+# Do not add time-to-first-audio measurement or percentiles in the UI unless the product ships them. Latency alerts shipped as Slow above (ms) (updated 2026-11-20).
 # build-blog.mjs does not emit FAQPage schema; the FAQ below is plain content.
 # Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus" (restructured 2026-11-03).
-updated: "2026-11-18"
+updated: "2026-11-20"
 ---
 
 A text-to-speech API fails in two ways. The obvious one is **down**: requests time out or come back 5xx. The quieter one is **slow**: the API still answers 200, but the first audio arrives a second late and your voice agent sounds like it froze. Callers hang up either way.
@@ -59,7 +59,7 @@ From one region you know whether the API answers from there. From several, a fai
 
 **Failures in a row, not one failure.** Alert when several checks in a row fail. On a canary that runs every 15 minutes, 3 failures is half an hour, so use 2. On a 5-minute reachability check, 3 is fine.
 
-**Slow as a failure.** A request timeout is the hard limit. Set it to the latency your agent cannot live past, not your normal latency. A 5-second timeout on the canary turns any synthesis slower than that into a failed check, and the failures-in-a-row rule still applies before anyone is paged.
+**Slow as its own alert.** Pick the latency callers notice and alert when the canary is slower than that, without calling the API down. A status page can then say "degraded" instead of "outage". Keep a request timeout above it as the hard limit for synthesis that never finishes. The failures-in-a-row rule applies to both before anyone is paged.
 
 **Read the status code before you blame the provider.** A 401 or 403 fails a check the same way an outage does. Look at the code before you escalate. If it is 401, it is your key.
 
@@ -82,7 +82,7 @@ If your product speaks, your customers notice a TTS outage quickly. Give voice i
 Yes. Check a free authenticated endpoint, such as the voices or models list, often. Run a tiny synthesis request less often.
 
 **What is a good latency target for a voice agent?**
-It depends on the provider and model. Watch the duration of your canary for a week from the regions your users are in. Then set the request timeout above the slowest runs you can accept.
+It depends on the provider and model. Watch the duration of your canary for a week from the regions your users are in. Then set the slow threshold just above your normal runs, and the request timeout above the slowest runs you can accept.
 
 **Should I monitor from one region?**
 One region tells you whether the API answers from there. It cannot tell a provider outage from a network problem near the probe. That takes several regions.
@@ -101,11 +101,11 @@ Both checks are QuickStatus [API checks](/docs/checks/). Here is how the setup a
 
 **Regions.** The free plan runs each check from one region. Pro runs it from all five: San Francisco, Ashburn, Montreal, Frankfurt, and Singapore.
 
-**Failures in a row.** Under **Advanced**, the **Confirmation period** sets how many failed checks in a row count as down: 1, 2, 3, or 5. The default is 3.
+**Failures in a row.** Under **When to alert**, **Mark down after** sets how many failed runs in a row count as down: 1, 2, 3, or 5. The default is 3.
 
-**Slow as a failure.** There is no latency alert. The lever is **Request timeout**: 5, 10, 15, or 30 seconds.
+**Slow as its own alert.** Under **Slow responses**, set **Slow above (ms)** and pick **Measured on**: **Total time** or **Time to first byte**. A run that works but is slower marks the check **Slow**, not down, sends an alert, and shows a linked component as Degraded performance. **Request timeout** (5, 10, 15, or 30 seconds) stays the hard limit.
 
-**Latency trend.** On the check page, the **Test duration (avg)** metric follows the time range you pick, back to the start of your plan's history: 14 days on Free, 90 on Pro. The region filter splits it by city, and the samples table shows the duration and status code of each run. The console shows no percentiles. `GET /v1/endpoints/{id}/history` returns `latency_ms` for every sample, so you can compute p50 and p95 yourself.
+**Latency trend.** On the check page, the **Test duration (avg)** metric follows the time range you pick, back to the start of your plan's history: 14 days on Free, 90 on Pro, a year on Scale. The region filter splits it by city, and the samples table shows the duration and status code of each run. The console shows no percentiles. `GET /v1/endpoints/{id}/history` returns `latency_ms` for every sample, so you can compute p50 and p95 yourself.
 
 **Status page.** Link the canary to the "Voice responses" component. Under **When the check is down**, pick **Create an incident automatically**. The default is **Don't create an incident**. If you want a person to approve the incident before it goes public, pick **Ask me to review first** instead.
 
