@@ -4,10 +4,6 @@ seo_title: "AI API uptime monitoring: probe OpenAI, Claude, and Gemini"
 description: "How to monitor OpenAI, Anthropic, Gemini, and other AI APIs from outside: the request to send, the status codes that matter, latency limits, and what probes cost."
 date: "2026-11-20"
 validated: "2026-11-20"
-# Target keyword: ai uptime monitoring api (secondary: LLM API uptime monitoring, monitor OpenAI API uptime, check if Claude API is down, AI API latency alerts).
-# Competes with getmaxim.ai/articles/ai-outage-monitoring-tools/ (2026-10-13), a gateway-first tools list with no probe requests, status-code handling, latency limits, or probe cost math. This post covers those.
-# Request shapes match data_pipeline/engine/domain/rankings_probes.py (the /uptime-rankings/ probes). Facts checked 2026-11-20; see validation/ai-api-uptime-monitoring.md.
-# Structure follows docs/marketing/blog-post-structure.md: no product until "Setting it up in QuickStatus.dev".
 ---
 
 An AI API can fail in more ways than a web page. It can return 500s. It can return 529 or 503 because the provider is overloaded. It can return 429 for your key while everyone else is fine. It can answer 200 in 40 seconds instead of 2. One model can fail while the others work, and one region can fail while the others answer.
